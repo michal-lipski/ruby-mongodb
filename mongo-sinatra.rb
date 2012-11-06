@@ -9,10 +9,16 @@ get '/test' do
 
   coll = db.collection('testCollection')
 
-  coll.find_one.to_a.each do |elem|
-      #"<h1>#{elem}</h1>"
-    "Hello"
+  doc = {"name" => "MongoDB", "type" => "database", "count" => 1, "info" => {"x" => 203, "y" => '102'}}
+  id = coll.insert(doc)
+
+  result = ""
+  coll.find.to_a.each do |elem|
+    result += "<h1>#{elem["name"]}</h1>"
   end
 
+  coll.drop
+
+  result
 
 end
